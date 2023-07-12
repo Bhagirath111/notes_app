@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:notes_app/button/round.dart';
 import '../../controller/login_controller.dart';
-import 'forgot_password.dart';
 import '../mobile_number_screens/mobile_no.dart';
+import 'forgot_password.dart';
 import 'signup.dart';
 
 class FirebaseLogin extends StatelessWidget {
@@ -88,11 +88,10 @@ class FirebaseLogin extends StatelessWidget {
                         },
                         child: const Text(
                           'Login Using Mobile No...',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.lightBlue
-                        ),
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.lightBlue),
                         ),
                       ),
                       const SizedBox(height: 50),
@@ -135,14 +134,15 @@ class FirebaseLogin extends StatelessWidget {
                       ),
                       const SizedBox(height: 40),
                       RoundButton(
-                          title: 'Log in',
-                          onTap: () {
-                            if (formLoginKey.currentState!.validate()) {
-                              controller.login();
-                            } else {
-                              Get.snackbar('Error', 'Please Enter Valid Email and Password');
-                            }
-                          },
+                        title: 'Log in',
+                        onTap: () {
+                          if (formLoginKey.currentState!.validate()) {
+                            controller.login();
+                          } else {
+                            Get.snackbar('Error',
+                                'Please Enter Valid Email and Password');
+                          }
+                        },
                       )
                     ],
                   ),

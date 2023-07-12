@@ -16,29 +16,29 @@ class FirebaseLoginController extends GetxController {
     super.onInit();
   }
 
-  visible(){
+  visible() {
     passwordVisible = !passwordVisible;
     update();
   }
 
   login() async {
     try {
-      await auth.signInWithEmailAndPassword(
-          email: emailController.text,
-          password: passwordController.text,
-        ).then((value) {
+      await auth
+          .signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      )
+          .then((value) {
         Get.to(const NotesScreen());
       });
     } on FirebaseAuthException catch (e) {
-      if(e.code == 'user-not-found'){
+      if (e.code == 'user-not-found') {
         Get.snackbar('Error', 'No user found for that email');
-      }
-      else if(e.code == 'wrong-password'){
+      } else if (e.code == 'wrong-password') {
         Get.snackbar('Error', 'Password incorrect. Please try again');
       }
       print(e);
-    }
-    catch(error) {
+    } catch (error) {
       print(error);
     }
     emailController.clear();

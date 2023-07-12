@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import '../../button/round.dart';
 import 'verification_screen.dart';
 
@@ -34,14 +35,15 @@ class _LoginWithPhoneNumberState extends State<LoginWithPhoneNumber> {
                     color: Colors.black),
               ),
               const SizedBox(height: 100),
-              TextFormField(
-                keyboardType: TextInputType.phone,
+              IntlPhoneField(
                 controller: phoneNumberController,
-                decoration: const InputDecoration(hintText: '*********'),
+                flagsButtonPadding: const EdgeInsets.all(6),
+                dropdownIconPosition: IconPosition.trailing,
+                decoration:
+                    const InputDecoration(hintText: 'Enter Mobile Number'),
+                initialCountryCode: 'IN',
               ),
-              const SizedBox(
-                height: 80,
-              ),
+              const SizedBox(height: 80),
               RoundButton(
                   title: 'Login',
                   loading: loading,
@@ -50,7 +52,7 @@ class _LoginWithPhoneNumberState extends State<LoginWithPhoneNumber> {
                       loading = true;
                     });
                     auth.verifyPhoneNumber(
-                        phoneNumber: phoneNumberController.text,
+                        phoneNumber: "+91${phoneNumberController.text}",
                         verificationCompleted: (_) {
                           setState(() {
                             loading = false;
@@ -80,7 +82,7 @@ class _LoginWithPhoneNumberState extends State<LoginWithPhoneNumber> {
                             loading = false;
                           });
                         });
-                  })
+                  }),
             ],
           ),
         ),

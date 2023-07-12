@@ -9,7 +9,8 @@ class VerifyCodeScreen extends StatefulWidget {
   final String verificationId;
   final String phoneNumber;
 
-  const VerifyCodeScreen({Key? key, required this.verificationId, required this.phoneNumber})
+  const VerifyCodeScreen(
+      {Key? key, required this.verificationId, required this.phoneNumber})
       : super(key: key);
 
   @override
@@ -32,19 +33,19 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
             children: [
               const SizedBox(height: 100),
               const Text(
-                  'Verify With OTP',
+                'Verify With OTP',
                 style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.w400,
-                    color: Colors.black
-                ),
+                    color: Colors.black),
               ),
               const SizedBox(height: 100),
               TextFormField(
                 maxLength: 6,
                 controller: verificationCodeController,
                 keyboardType: TextInputType.number,
-                decoration: const InputDecoration(hintText: '6 digit code'),
+                decoration:
+                    const InputDecoration(hintText: 'Enter 6 digit code'),
               ),
               const SizedBox(height: 80),
               RoundButton(
@@ -61,7 +62,9 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                       await auth.signInWithCredential(credential);
                       User? user = FirebaseAuth.instance.currentUser;
                       await FirebaseFirestore.instance
-                          .collection('userdata').doc(user!.uid).set({
+                          .collection('userdata')
+                          .doc(user!.uid)
+                          .set({
                         'email': '',
                         'name': '',
                         'phoneNumber': widget.phoneNumber,
@@ -69,8 +72,7 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
                         'createdDate': DateTime.now(),
                         'userId': user.uid
                       });
-                      Get.to(() => const NotesScreen()
-                      );
+                      Get.to(() => const NotesScreen());
                     } catch (e) {
                       setState(() {
                         loading = false;

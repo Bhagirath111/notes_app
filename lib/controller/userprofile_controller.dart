@@ -35,5 +35,4 @@ class UserProfileController extends GetxController {
         MaterialPageRoute(builder: (context) => const FirebaseLogin()),
         (Route<dynamic> route) => false);
   }
-
 }

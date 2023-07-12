@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:notes_app/button/round.dart';
-import '../../controller/forgot_password_controller.dart';
 
+import '../../controller/forgot_password_controller.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
   const ForgotPasswordScreen({Key? key}) : super(key: key);
@@ -28,8 +28,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 30,
                             fontWeight: FontWeight.w400,
-                            color: Colors.black
-                        ),
+                            color: Colors.black),
                       ),
                       const SizedBox(height: 50),
                       const Text(
@@ -37,14 +36,13 @@ class ForgotPasswordScreen extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w400,
-                            color: Colors.black54
-                        ),
+                            color: Colors.black54),
                       ),
                       const SizedBox(height: 50),
                       TextFormField(
                         controller: controller.emailController,
                         validator: (email) {
-                          if(email!.isEmpty && !email.contains('@')){
+                          if (email!.isEmpty && !email.contains('@')) {
                             return 'Please Enter Valid Email';
                           }
                           return null;
@@ -54,19 +52,16 @@ class ForgotPasswordScreen extends StatelessWidget {
                             hintStyle: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w500,
-                                color: Colors.black
-                            )
-                        ),
+                                color: Colors.black)),
                       ),
                       const SizedBox(height: 50),
                       RoundButton(
-                           title: 'Send',
+                          title: 'Send',
                           onTap: () {
-                            if(passwordKey.currentState!.validate()){
+                            if (passwordKey.currentState!.validate()) {
                               controller.verifyEmail();
                             }
-                           }
-                           )
+                          })
                     ],
                   ),
                 ),

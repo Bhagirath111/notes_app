@@ -73,9 +73,7 @@ class UserProfile extends StatelessWidget {
                                     hintStyle: TextStyle(
                                         fontSize: 15,
                                         fontWeight: FontWeight.w400,
-                                        color: Colors.black
-                                    )
-                                ),
+                                        color: Colors.black)),
                                 validator: (name) {
                                   if (name!.isEmpty) {
                                     return 'Please Enter Valid Name';
@@ -93,13 +91,11 @@ class UserProfile extends StatelessWidget {
                                   return null;
                                 },
                                 decoration: const InputDecoration(
-                                  hintText: 'Enter Your Email',
-                                  hintStyle: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w400,
-                                    color: Colors.black
-                                  )
-                                ),
+                                    hintText: 'Enter Your Email',
+                                    hintStyle: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w400,
+                                        color: Colors.black)),
                               ),
                               const SizedBox(height: 15),
                               Container(
@@ -119,12 +115,13 @@ class UserProfile extends StatelessWidget {
                                   onTap: () async {
                                     if (controller.image != null) {
                                       firebase_storage.Reference ref =
-                                      firebase_storage
-                                          .FirebaseStorage.instance
-                                          .ref(
-                                          '/ProfileImage/${DateTime.now().millisecondsSinceEpoch}');
+                                          firebase_storage
+                                              .FirebaseStorage.instance
+                                              .ref(
+                                                  '/ProfileImage/${DateTime.now().millisecondsSinceEpoch}');
                                       firebase_storage.UploadTask uploadTask =
-                                      ref.putFile(controller.image!.absolute);
+                                          ref.putFile(
+                                              controller.image!.absolute);
 
                                       await Future.value(uploadTask)
                                           .then((value) async {
@@ -134,21 +131,23 @@ class UserProfile extends StatelessWidget {
                                             .doc(controller.profileUser!.uid)
                                             .set({
                                           "profileImage":
-                                          newUrl.toString() != null
-                                              ? newUrl.toString()
-                                              : profileImage,
+                                              newUrl.toString() != null
+                                                  ? newUrl.toString()
+                                                  : profileImage,
                                           'email': controller
-                                              .updateEmailController
-                                              .text
-                                              .isEmpty
+                                                  .updateEmailController
+                                                  .text
+                                                  .isEmpty
                                               ? docEmail
                                               : controller
-                                              .updateEmailController.text,
-                                          'name': controller.updateNameController
-                                              .text.isEmpty
+                                                  .updateEmailController.text,
+                                          'name': controller
+                                                  .updateNameController
+                                                  .text
+                                                  .isEmpty
                                               ? docName
                                               : controller
-                                              .updateNameController.text,
+                                                  .updateNameController.text,
                                         }, SetOptions(merge: true));
                                       });
                                     } else {
@@ -156,16 +155,18 @@ class UserProfile extends StatelessWidget {
                                           .collection('userdata')
                                           .doc(controller.profileUser!.uid)
                                           .set({
-                                        'email': controller.updateEmailController
-                                            .text.isEmpty
+                                        'email': controller
+                                                .updateEmailController
+                                                .text
+                                                .isEmpty
                                             ? docEmail
                                             : controller
-                                            .updateEmailController.text,
-                                        'name': controller
-                                            .updateNameController.text.isEmpty
+                                                .updateEmailController.text,
+                                        'name': controller.updateNameController
+                                                .text.isEmpty
                                             ? docName
                                             : controller
-                                            .updateNameController.text,
+                                                .updateNameController.text,
                                       }, SetOptions(merge: true));
                                     }
                                     Get.to(const NotesScreen());

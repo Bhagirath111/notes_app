@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:notes_app/button/round.dart';
 
 class NotesController extends GetxController {
   TextEditingController textController = TextEditingController();
@@ -49,8 +50,10 @@ class NotesController extends GetxController {
                   TextFormField(
                     controller: updateTextController..text = text,
                   ),
-                  FloatingActionButton(
-                    onPressed: () {
+                  const SizedBox(height: 30),
+                  RoundButton(
+                    title: 'Update',
+                    onTap: () {
                       FirebaseFirestore.instance
                           .collection('userdata')
                           .doc(user!.uid)
@@ -60,7 +63,6 @@ class NotesController extends GetxController {
                       Get.back();
                       updateTextController.clear();
                     },
-                    child: const Text('Update'),
                   ),
                 ],
               ),

@@ -15,7 +15,7 @@ class FirebaseSignupController extends GetxController {
     super.onInit();
   }
 
-  visible(){
+  visible() {
     passwordVisible = !passwordVisible;
     update();
   }
@@ -46,8 +46,7 @@ class FirebaseSignupController extends GetxController {
       if (e.code == 'email-already-in-use') {
         print('an account already exists for this email');
         Get.snackbar('Error', 'an account already exists for this email');
-      }
-      else if (e.code == 'Weak Password') {
+      } else if (e.code == 'Weak Password') {
         print('The Password Provided is Too Weak');
         Get.snackbar('Error', 'The Password Provided is Too Weak');
       }
