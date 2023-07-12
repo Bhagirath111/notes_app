@@ -7,7 +7,9 @@ import 'screens/Notes_screen/notes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+
+  );
 
   runApp(const MyApp());
 }
@@ -32,13 +34,13 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Notes app',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: user != null ? const NotesScreen() : const FirebaseLogin(),
-    );
+        title: 'Notes app',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: user != null ? const NotesScreen() : const FirebaseLogin(),
+      );
   }
 }

@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:notes_app/button/round.dart';
-
 import '../../controller/notes_controller.dart';
+import 'notification.dart';
 import 'userprofile.dart';
 
 class NotesScreen extends StatelessWidget {
@@ -25,6 +25,14 @@ class NotesScreen extends StatelessWidget {
               },
               icon: const Icon(Icons.person),
             ),
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    Get.to(const NotificationScreen());
+                  },
+                  icon: const Icon(Icons.notifications)
+              )
+            ],
           ),
           body: SingleChildScrollView(
             child: Padding(
