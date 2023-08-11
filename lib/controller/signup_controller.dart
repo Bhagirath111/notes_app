@@ -9,6 +9,7 @@ class FirebaseSignupController extends GetxController {
   TextEditingController passwordController = TextEditingController();
 
   bool passwordVisible = true;
+  bool loading = false;
 
   @override
   void onInit() {

@@ -3,8 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:notes_app/button/round.dart';
+import 'package:notes_app/screens/Notes_screen/notification_services.dart';
 
 class NotesController extends GetxController {
+  NotificationServices notificationServices = NotificationServices();
+
   TextEditingController textController = TextEditingController();
   TextEditingController updateTextController = TextEditingController();
   User? user = FirebaseAuth.instance.currentUser;
@@ -12,6 +15,14 @@ class NotesController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    notificationServices.requestNotificationPermission();
+    notificationServices.firebaseInit();
+    notificationServices.setupInteractMessage();
+    //notificationServices.isTokenRefresh();
+    notificationServices.getDeviceToken().then((value) {
+      print('Device token');
+      print(value);
+    });
   }
 
   saveNote() {

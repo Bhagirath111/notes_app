@@ -3,13 +3,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
-import '../screens/login_signup_screen/login.dart';
 
 class UserProfileController extends GetxController {
   TextEditingController updateEmailController = TextEditingController();
   TextEditingController updateNameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+
   User? profileUser = FirebaseAuth.instance.currentUser;
 
   File? image;
@@ -29,10 +30,9 @@ class UserProfileController extends GetxController {
     }
   }
 
-  signOut(context) async {
+  signOut() async {
     await FirebaseAuth.instance.signOut();
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => const FirebaseLogin()),
-        (Route<dynamic> route) => false);
+    await GoogleSignIn().disconnect();
   }
+
 }

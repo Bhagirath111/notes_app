@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../button/round.dart';
 import '../../controller/signup_controller.dart';
 
@@ -96,12 +95,15 @@ class FirebaseSignup extends StatelessWidget {
                       const SizedBox(height: 90),
                       RoundButton(
                         title: 'Sign up',
+                        loading: controller.loading,
                         onTap: () {
+                          controller.loading = true;
                           if (formSignupKey.currentState!.validate()) {
                             controller.signUp();
+                            controller.loading = false;
                           }
                         },
-                      )
+                      ),
                     ],
                   ),
                 ),

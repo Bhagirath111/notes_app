@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:notes_app/button/round.dart';
 import '../../controller/notes_controller.dart';
-import 'notification.dart';
 import 'userprofile.dart';
 
 class NotesScreen extends StatelessWidget {
@@ -25,14 +24,6 @@ class NotesScreen extends StatelessWidget {
               },
               icon: const Icon(Icons.person),
             ),
-            actions: [
-              IconButton(
-                  onPressed: () {
-                    Get.to(const NotificationScreen());
-                  },
-                  icon: const Icon(Icons.notifications)
-              )
-            ],
           ),
           body: SingleChildScrollView(
             child: Padding(
@@ -54,6 +45,7 @@ class NotesScreen extends StatelessWidget {
                       title: 'Save',
                       onTap: () {
                         controller.saveNote();
+                        FocusManager.instance.primaryFocus!.unfocus();
                       }),
                   const SizedBox(height: 50),
                   SizedBox(
@@ -82,13 +74,19 @@ class NotesScreen extends StatelessWidget {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(document['text']),
+                                      Expanded(
+                                          child: Text(
+                                        document['text'],
+                                        style: const TextStyle(
+                                            overflow: TextOverflow.visible),
+                                      )),
                                       IconButton(
                                           onPressed: () {
                                             controller.deleteNote(docId);
                                           },
                                           icon: const Icon(Icons.delete,
-                                              color: Colors.red)),
+                                              color: Colors.red)
+                                      ),
                                       IconButton(
                                           onPressed: () {
                                             controller.updateNote(

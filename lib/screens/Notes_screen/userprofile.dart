@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:notes_app/button/round.dart';
 import '../../controller/userprofile_controller.dart';
+import '../Login_Signup_Screen/signin.dart';
 import 'notes.dart';
 
 class UserProfile extends StatelessWidget {
-  const UserProfile({
-    Key? key,
-  }) : super(key: key);
+  const UserProfile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +24,11 @@ class UserProfile extends StatelessWidget {
           body: SingleChildScrollView(
             child: SizedBox(
               height: 700,
-              child: StreamBuilder(
-                stream: FirebaseFirestore.instance
+              child: FutureBuilder(
+                future: FirebaseFirestore.instance
                     .collection('userdata')
                     .where('userId', isEqualTo: controller.profileUser?.uid)
-                    .snapshots(),
+                    .get(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {
@@ -122,7 +121,6 @@ class UserProfile extends StatelessWidget {
                                       firebase_storage.UploadTask uploadTask =
                                           ref.putFile(
                                               controller.image!.absolute);
-
                                       await Future.value(uploadTask)
                                           .then((value) async {
                                         var newUrl = await ref.getDownloadURL();
@@ -175,7 +173,10 @@ class UserProfile extends StatelessWidget {
                               RoundButton(
                                   title: 'Sign out',
                                   onTap: () {
-                                    controller.signOut(context);
+                                    controller.signOut();
+                                    Navigator.of(context).pushAndRemoveUntil(
+                                        MaterialPageRoute(builder: (context) => const FirebaseLogin()),
+                                            (Route<dynamic> route) => false);
                                   }),
                             ],
                           ),

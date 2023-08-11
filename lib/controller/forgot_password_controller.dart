@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../screens/login_signup_screen/login.dart';
+import '../screens/login_signup_screen/signin.dart';
 
 class ForgotPasswordController extends GetxController {
   TextEditingController emailController = TextEditingController();

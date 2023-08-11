@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:notes_app/button/round.dart';
-
 import '../../controller/forgot_password_controller.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {

@@ -22,65 +22,76 @@ class _VerifyCodeScreenState extends State<VerifyCodeScreen> {
 
   final verificationCodeController = TextEditingController();
   final auth = FirebaseAuth.instance;
+  final otpKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            children: [
-              const SizedBox(height: 100),
-              const Text(
-                'Verify With OTP',
-                style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black),
-              ),
-              const SizedBox(height: 100),
-              TextFormField(
-                maxLength: 6,
-                controller: verificationCodeController,
-                keyboardType: TextInputType.number,
-                decoration:
-                    const InputDecoration(hintText: 'Enter 6 digit code'),
-              ),
-              const SizedBox(height: 80),
-              RoundButton(
-                  title: 'Verify',
-                  loading: loading,
-                  onTap: () async {
-                    setState(() {
-                      loading = true;
-                    });
-                    final credential = PhoneAuthProvider.credential(
-                        verificationId: widget.verificationId,
-                        smsCode: verificationCodeController.text.toString());
-                    try {
-                      await auth.signInWithCredential(credential);
-                      User? user = FirebaseAuth.instance.currentUser;
-                      await FirebaseFirestore.instance
-                          .collection('userdata')
-                          .doc(user!.uid)
-                          .set({
-                        'email': '',
-                        'name': '',
-                        'phoneNumber': widget.phoneNumber,
-                        'profileImage': '',
-                        'createdDate': DateTime.now(),
-                        'userId': user.uid
-                      });
-                      Get.to(() => const NotesScreen());
-                    } catch (e) {
-                      setState(() {
-                        loading = false;
-                      });
-                      Get.snackbar("error", "something wrong");
+      body: Form(
+        key: otpKey,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              children: [
+                const SizedBox(height: 100),
+                const Text(
+                  'Verify With OTP',
+                  style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black),
+                ),
+                const SizedBox(height: 100),
+                TextFormField(
+                  maxLength: 6,
+                  controller: verificationCodeController,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(hintText: 'Enter 6 digit code'),
+                  validator: (otp) {
+                    if(otp!.isEmpty || otp.length < 6) {
+                      return 'Please Enter Valid otp';
                     }
-                  }),
-            ],
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 80),
+                RoundButton(
+                    title: 'Verify',
+                    loading: loading,
+                    onTap: () async {
+                      if(otpKey.currentState!.validate()){
+                        setState(() {
+                          loading = true;
+                        });
+                        final credential = PhoneAuthProvider.credential(
+                            verificationId: widget.verificationId,
+                            smsCode: verificationCodeController.text.toString());
+                        try {
+                          await auth.signInWithCredential(credential);
+                          User? user = FirebaseAuth.instance.currentUser;
+                          await FirebaseFirestore.instance
+                              .collection('userdata')
+                              .doc(user!.uid)
+                              .set({
+                            'email': '',
+                            'name': '',
+                            'phoneNumber': widget.phoneNumber,
+                            'profileImage': '',
+                            'createdDate': DateTime.now(),
+                            'userId': user.uid
+                          });
+                          Get.to(() => const NotesScreen());
+                        } catch (e) {
+                          setState(() {
+                            loading = false;
+                          });
+                          Get.snackbar("error", "something wrong");
+                        }
+                      }
+                    }),
+              ],
+            ),
           ),
         ),
       ),
